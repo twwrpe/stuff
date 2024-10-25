@@ -1,0 +1,42 @@
+import random
+import os
+import platform
+
+def log_off_user():
+    if platform.system() == "Windows":
+        os.system("shutdown -l")
+    elif platform.system() == "Linux" or platform.system() == "Darwin":
+        os.system("logout")
+
+def guessing_game():
+    number_to_guess = random.randint(1, 10)
+    attempts = 0
+    max_attempts = 3
+
+    print("Welcome to the Guessing Game!")
+    print("Try to guess the number between 1 and 10.")
+
+    while attempts < max_attempts:
+        try:
+            guess = int(input("Enter your guess: "))
+            if guess < 1 or guess > 10:
+                print("Please enter a number between 1 and 10.")
+                continue
+
+            attempts += 1
+
+            if guess == number_to_guess:
+                print("Congratulations! You guessed the correct number.")
+                return
+            else:
+                print(f"Incorrect! You have {max_attempts - attempts} attempts left.")
+
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+    print("The correct number was:", number_to_guess)
+    print("Sorry, you've used all your attempts. Logging off your computer...")
+    log_off_user()
+
+if __name__ == "__main__":
+    guessing_game()
